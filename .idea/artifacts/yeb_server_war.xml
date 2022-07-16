@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="yeb-server:war">
+    <output-path>$PROJECT_DIR$/yeb-server/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>yeb-server</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="app.war">
+      <element id="artifact" artifact-name="yeb-server:war exploded" />
+    </root>
+  </artifact>
+</component>

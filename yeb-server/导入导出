@@ -1,0 +1,18 @@
+添加依赖 加入excel注解 和 @ExcelEntity(name = "职位")注解
+
+在控制类里查所有角色 new 一个 ExportParams选择03版本的 利用导出工具类 ExcelExportUtil.exportExcel把 表 和
+ExportParams 和查出的角色放进去  利用流形式导出 （ServletOutputStream） response.setHeader
+
+  在设置防乱码 response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode("员工表.xls", "UTF-8"))
+mapper xml里复用查所有角色代码sql。
+
+导入操作： 取巧的方法因为变动不大 查数据库少性能增加
+
+ 民族那些属性的 重写eq和哈希方法 再添加构造方法 而且要非空的nonnull。
+
+  在控制类方法了里传文件（MultipartFile），  new 一个导入类 ImportParams（）， 清除标题头 然后各种查所有
+  利用工具类ExcelExportUtil的方法importExcel传（流的形式 和pojo类的字节码（**.class）和导入类的返回值）得到一个list
+
+ 循坏这个list 只有拿到民族的ID
+ employee.setNationId(needId); needId通过 （获取Nation的name, 通过name获取对应的下标，通过下标获取完整的对象，
+ 通过对象获取 id）。这样就只查一次数据库。

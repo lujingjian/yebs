@@ -1,0 +1,33 @@
+ 查询所有用户
+操作员涉及权限 拥有哪些角色 然后根据角色拥有哪些菜单的权限
+
+值得注意在SQL里不能使用双引号  注意不能查当前登录的所以还要传当前登录的用户 把获取当前用户的方法做成一个工具类方便调用 传一个当前用户和
+string过去  加@Param注解  写SQL 之后的更新功能报错 在pojo添加在启用的属性上 @Getter(AccessLevel.NONE) 因为映射冲突了
+
+SELECT
+                                    a.*,
+                                    r.id AS rid,
+                                    r.`name` AS rname,
+                                    r.nameZh AS rnameZH
+                                FROM
+                                    t_admin a
+                                        LEFT JOIN t_admin_role ar ON a.id = ar.adminId
+                                        LEFT JOIN t_role r ON r.id = ar.rid
+                                WHERE
+                                    a.id !=#{id}
+                                    <if test="null!=keywords and ''!=keywords">
+                                        AND a.`name` LIKE CONCAT('%',#{keywords},'%')
+                                    </if>
+                                ORDER BY
+                                    a.id
+操作员角色功能实现3步：
+
+获取所有角色（已经实现）
+
+查询操作员携带的角色
+
+更新操作员角色 <!--更新操作员角色 先清空 然后再集体添加-->
+
+
+
+

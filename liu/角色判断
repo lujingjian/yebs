@@ -1,0 +1,23 @@
+1.根据请求的url判断角色的权限  根据是否登录去判断url 根据请求的url判断角色
+根据url判断菜单的id  然后通过中间表判断 他又哪些角色 需要拥有URL的权限 然后进行比较。
+
+2.t_menu表关联t_menuRole表 Role表又关联它 所以t_menuRole它是中间表 写sql
+
+3.创建过滤类 实现FilterInvocationSecurityMetadataSource接口
+
+
+4.pojo添加一个角色列表List<Role> roles 然后去然后去mepper层 /根据用户ID查询角色列表 写sql
+4.1在登录方法里改造 在设置里把角色加上去 每次登录完后它就你可以获取到我们的角色列表， 登录方法里 通过重写的方法去改造
+达到登录以及获取用户信息都能返回角色列表
+4.2 去创建一个拦截类 实现AccessDecisionManager接口 然后然后循坏ConfigAttribute它是重写方法里面的参数
+然后去调用getAttribute()方法 得到一个当前url所需要的角色，再判断它是否是等于登录即可访问的角色 ROLE_LOGIN是之前在拦截器里设置过全局登录角色
+再判断是否已经登录状态 (authentication instanceof AnonymousAuthenticationToken){}如果是这个 就没登录 不是就直接返回
+4.3 再判断用户角色是否为URL所需要的角色
+通过authentication.getAuthorities()得到权限 遍历这个权限 因为不止一个权限 判断里面的角色是否和当前url角色一致 如果还是不行的话
+那就是权限不足了；
+5. 去安全框架里 设置动态认证 把两个拦截类注入 然后放进去，
+
+
+
+
+

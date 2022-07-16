@@ -1,0 +1,25 @@
+根据用用户ID查对应的列表
+
+1.因为查询会存在子菜单 所以在实体类里添加children 属性 然后设置@tablefieid(exist=false)表示在表字段里没有这个属性
+然后去控制层
+2.因为到时候会根据url进行一个过滤拦截 所以把路径设置跟表里url一样方便代码 实现该接口和方法
+2.1  在接口 实现类里 ==》用户登录后 应该在后端拿数据为了防止篡改  通过securitity的全局对象去获取用户ID
+return  adminMapper.getMenuByAdmin(((Admin)SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal()).getId());
+2.2创建该接口
+3.编写SQL
+
+4用ridis将其变为热点数据
+4.1加依赖 在yml设置redis参数 添加redis配置类 添加@bean注解 创建RedisTemplate类的的方法传进去RedisConnectionFactory参数
+设置序列化   //string类型序列化 key和value
+            redisTemplate.setKeySerializer(new StringRedisSerializer());
+
+4.2在实现类里注入redis类的方法 redisTemplate.opsForValue()  设置key让它从redis拿 然后判断空值 如果空 就走数据库。
+
+然后将数据设置到redis中
+
+
+
+
+ 建议先去NAVICAT先查再复制
+

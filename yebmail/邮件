@@ -1,0 +1,16 @@
+添加依赖 配备好子父工程 补齐目录 添加一个HTML文件用于发送邮件n 创建一个启动类
+
+创建消息接收类( 注入JavaMailSender(邮件发送)，MailProperties（邮件配置），TemplateEngine（引擎）
+监听 队列  》》创建邮件发送.createMimeMessage()  new一个 MimeMessageHelper放入邮件发送的返回值 调用 MimeMessageHelper的setFrom方法发送 setTo 收件人
+ 准备要导模板的包new Context() 准备邮件内容 调用context的setVariable方法  通过引擎发送.process 最后发送设置为html
+
+)
+
+在启动类里绑定队列 @Bean
+            public Queue queue(){
+                return new  Queue("mail.welcome");
+            }
+
+
+rabbitmq: 根据数据库添加pojo 在pojo类里建立常量
+

@@ -1,0 +1,11 @@
+获取所有部门功能的实现 主要是 查 有子部门不能删除 部门里面有员工也不能删。
+因为有子部门所以去修改实体类 添加两个属性一个子部门 一个接收结果（存储过程需要的），各种实现 可以参照查找菜单的自关联方式写SQL
+也可以用类似递归的方法 在业务层加-1最大的编号 依次递增。拿传过来的ID查 写resultmap 这里重点。
+    <resultMap id="DepartmentWithChildren" type="com.example.server.pojo.Department" extends="BaseResultMap">
+        <collection property="children" ofType="com.example.server.pojo.Department"
+                    select="com.example.server.mapper.DepartmentMapper.getAllDepartment" column="id"></collection>
+    </resultMap> 把-1传过去然后递增地查。
+
+添加部门操作 调用存储过程方法
+
+删除部门也是 但是需要pojo类去接收result, new一个他的实体类 然后Set他的的ID 然后方法里传实体类。最后判断-1 -2 1三种结果

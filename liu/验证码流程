@@ -1,0 +1,11 @@
+1 添加依赖，配置config类 添加@Configuration 然后cp验证码生成的代码 然后去实体类添加登录的code方法
+2.到控制层创建一个类 CP验证码生成的固定写法
+
+2.1 1.创建文本 然后注入配置类里的生成图片方法 //2.将验证码放 session 3.根据文本验证码内容 创建图形验证码  //4.输出流输出图片
+//有流后就可以用imageio类的write方法输出图片 设置它的格式为jpg
+ 在@GetMapping(value = "/captcha",produces = "image/jpeg")//为了让接口文档能看见图片加produces
+
+ 记得security放行
+ 3.在登陆方法里添加 之前在实体类的code方法 out+ent 让他们的接口和实现类都添加getCode
+ 3.1//在接口实现类里 //把之前把验证码放入session拿出来   判断如果验证码是空的 用户没输入 或者验证码匹配不上
+ .equalsIgnoreCase(code)) {//忽略大小写  返回错误的方法的相应提示
